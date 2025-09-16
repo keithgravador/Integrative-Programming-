@@ -22,3 +22,27 @@
     </form>
 </body>
 </html>
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Process GET</title>
+</head>
+<body>
+    <?php
+        if (isset($_GET['name']) && isset($_GET['age']) && isset($_GET['course'])) {
+            $name = htmlspecialchars($_GET['name']);
+            $age = htmlspecialchars($_GET['age']);
+            $course = htmlspecialchars($_GET['course']); 
+
+            echo "Your name is: " . $name . "<br>";
+            echo "Your age is: " . $age . "<br>";
+            echo "Your course is: " . $course . "<br>";
+        } else {
+            echo "No data received.";
+        }
+    ?>
+</body>
+</html>
