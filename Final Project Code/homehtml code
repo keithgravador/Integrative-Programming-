@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fast Food</title>
+<link rel="stylesheet" href="home2.css">
+<style>
+#orderPopup {
+    display: none;
+    position: fixed;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.3);
+    z-index:1000;
+}
+#orderPopup h3 { margin-top: 0; color: #ff6b6b; }
+#orderPopup button { margin-top: 10px; padding: 10px 20px; border:none; border-radius:5px; background:#ff6b6b; color:white; cursor:pointer; }
+#orderPopup button:hover { background:#ff5252; }
+#popupQuantity { margin-top:10px; padding:5px; }
+</style>
+</head>
+<body>
+
+<header>
+    <nav>
+        <div class="logo">Taste The Variety</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#dishes">Dishes</a></li>
+            <li><a href="cart.html">Cart</a></li>
+            <li><a href="orders.html">Orders</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="home" id="home">
+    <div class="home-content">
+        <h1>Delicious Food Delivered</h1>
+        <p>Order your favourite meals from the best restaurants in town</p>
+        <a href="#menu" class="cta-button">Order Now</a>
+    </div>
+</section>
+
+<section class="categories" id="menu">
+    <h2 class="section-title">Our Menu Categories</h2>
+    <div class="category-grid">
+        <div class="category-card" data-name="Pizza" data-price="300">
+            <div class="category-image"><img src="images/pizza.jpg" alt="Pizza"></div>
+            <div class="category-content"><h3>Pizza</h3></div>
+        </div>
+        <div class="category-card" data-name="Burger" data-price="250">
+            <div class="category-image"><img src="images/burger.jpg" alt="Burger"></div>
+            <div class="category-content"><h3>Burger</h3></div>
+        </div>
+        <div class="category-card" data-name="Chicken Wings" data-price="200">
+            <div class="category-image"><img src="images/chikenwings.jpg" alt="Chicken Wings"></div>
+            <div class="category-content"><h3>Chicken Wings</h3></div>
+        </div>
+    </div>
+</section>
+
+<section class="dishes" id="dishes">
+    <h2 class="section-title">Popular Dishes</h2>
+    <div class="dishes-grid">
+        <div class="dishes-card" data-name="Margherita Pizza" data-price="300">
+            <div class="dish-image"><img src="images/pizza.jpg" alt=""></div>
+            <div class="dish-content">
+                <h3 class="dish-title">Margherita Pizza</h3>
+                <p>Fresh tomatoes, mozzarella, basil</p>
+                <div class="dish-price">300</div>
+                <a href="#" class="order-button">Add to cart</a>
+            </div>
+        </div>
+
+        <div class="dishes-card" data-name="Classic Burger" data-price="250">
+            <div class="dish-image"><img src="images/burger.jpg" alt=""></div>
+            <div class="dish-content">
+                <h3 class="dish-title">Classic Burger</h3>
+                <p>Beef patty, lettuce, tomato, cheese</p>
+                <div class="dish-price">250</div>
+                <a href="#" class="order-button">Add to cart</a>
+            </div>
+        </div>
+
+        <div class="dishes-card" data-name="Salad" data-price="200">
+            <div class="dish-image"><img src="images/salad.jpg" alt=""></div>
+            <div class="dish-content">
+                <h3 class="dish-title">Salad</h3>
+                <p>Mixed greens, tomatoes, cucumbers</p>
+                <div class="dish-price">200</div>
+                <a href="#" class="order-button">Add to cart</a>
+            </div>
+        </div>
+
+        <div class="dishes-card" data-name="Fries" data-price="100">
+            <div class="dish-image"><img src="images/fries.jpg" alt=""></div>
+            <div class="dish-content">
+                <h3 class="dish-title">Fries</h3>
+                <p>Potato</p>
+                <p>Original flavor</p>
+                <div class="dish-price">100</div>
+                <a href="#" class="order-button">Add to cart</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div id="orderPopup">
+    <h3 id="popupItemName"></h3>
+    <p>Price: <span id="popupItemPrice"></span></p>
+    Quantity:
+    <select id="popupQuantity">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+    </select>
+    <br>
+    <button id="popupAddCart">Add to Cart</button>
+    <button onclick="closePopup()">Cancel</button>
+</div>
+
+<footer>
+    <p>&copy; 2025 Taste The Variety. All rights reserved.</p>
