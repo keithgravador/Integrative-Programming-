@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login | Taste The Variety</title>
+<link rel="stylesheet" href="home2.css">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container {
+    background: white;
+    padding: 50px;
+    border-radius: 15px;
+    width: 400px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+.login-container h2 {
+    text-align: center;
+    color: #ff6b6b;
+    margin-bottom: 30px;
+    font-size: 2rem;
+}
+
+.login-container input[type="text"],
+.login-container input[type="password"] {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.show-password {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    gap: 5px;
+    color: #333;
+}
+
+button.submit-btn {
+    width: 48%;
+    padding: 15px;
+    background-color: #ff6b6b;
+    color: white;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 8px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button.submit-btn:hover {
+    background-color: #ff4a4a;
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 4%;
+}
+
+@media screen and (max-width: 768px) {
+    .login-container {
+        width: 90%;
+        padding: 30px;
+    }
+    .button-group {
+        flex-direction: column;
+    }
+    .button-group button {
+        width: 100%;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="login-container">
+    <h2>Login</h2>
+
+    <form id="loginForm" action="home.html">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" id="password" name="password" placeholder="Password" required>
+
+        <div class="show-password">
+            <input type="checkbox" id="showPass" onclick="togglePassword()">
+            <label for="showPass">Show Password</label>
+        </div>
+
+        <div class="button-group">
+            <button type="button" class="submit-btn" onclick="submitGet()">Login (GET)</button>
+            <button type="button" class="submit-btn" onclick="submitPost()">Login (POST)</button>
+        </div>
+    </form>
+</div>
+
+<script>
+function togglePassword() {
+    var x = document.getElementById("password");
+    x.type = x.type === "password" ? "text" : "password";
+}
+
+function submitGet() {
+    const form = document.getElementById("loginForm");
+    form.method = "GET";
+    form.submit();
+}
+
+function submitPost() {
+    const form = document.getElementById("loginForm");
+    form.method = "POST";
+    form.submit();
+}
+</script>
+
+</body>
+</html>
