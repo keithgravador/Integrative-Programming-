@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cart - Taste The Variety</title>
+<link rel="stylesheet" href="home2.css">
+<style>
+body { padding:2rem; font-family:'Segoe UI', sans-serif; }
+h1 { color:#ff6b6b; margin-bottom:20px; }
+table { width:100%; border-collapse: collapse; margin-bottom:20px; }
+th, td { padding:10px; border-bottom:1px solid #ddd; }
+th { color:#ff6b6b; text-align:left; }
+td.quantity { text-align:center; }
+td.price { text-align:right; }
+input.qty { width:50px; text-align:center; }
+button { padding:8px 15px; margin-left:5px; border:none; border-radius:5px; cursor:pointer; }
+button.remove { background:#ff6b6b; color:white; }
+button.remove:hover { background:#ff5252; }
+button.checkout { background:#4ecdc4; color:white; }
+button.checkout:hover { background:#38b2ac; }
+.total { font-weight:bold; text-align:right; margin-top:10px; color:#ff6b6b; }
+.cta-button { padding:10px 20px; background:#ff6b6b; color:white; border:none; border-radius:5px; text-decoration:none; }
+</style>
+</head>
+<body>
+
+<h1>Your Cart</h1>
+<div id="cartItems"></div>
+<button class="checkout" id="proceedCheckout">Proceed to Checkout</button>
+<a href="home.html" class="cta-button">Back to Home</a>
+
+<script>
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+let orders = JSON.parse(localStorage.getItem('orders')) || [];
+
+const cartItemsDiv = document.getElementById('cartItems');
+
+function renderCart(){
+    if(cart.length === 0){
+        cartItemsDiv.innerHTML = "<p>Your cart is empty!</p>";
+        document.getElementById('proceedCheckout').style.display = 'none';
+        return;
+    }
+    
+    let html = '<table>';
+    html += '<tr><th>Item</th><th>Quantity</th><th>Price</th><th>Action</th></tr>';
+    
+    cart.forEach((item, index) => {
+        html += `<tr>
+                    <td>${item.name}</td>
+                    <td class="quantity"><input type="number" class="qty" value="${item.quantity}" min="1" data-index="${index}"></td>
+                    <td class="price">₱${item.price * item.quantity}</td>
+                    <td><button class="remove" data-index="${index}">Remove</button></td>
+                 </tr>`;
+    });
+    
+    html += '</table>';
+    
+
+    let total = cart.reduce((acc, item)=> acc + (item.price * item.quantity), 0);
+    html += `<div class="total">Total: ₱${total}</div>`;
+    
+    cartItemsDiv.innerHTML = html;
+    
+    document.querySelectorAll('.remove').forEach(btn => {
+        btn.addEventListener('click', function(){
+            let index = parseInt(btn.dataset.index);
+            cart.splice(index,1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+        });
+    });
+    
+    document.querySelectorAll('.qty').forEach(input => {
+        input.addEventListener('change', function(){
+            let index = parseInt(input.dataset.index);
+            let val = parseInt(input.value);
+            if(val < 1) val = 1;
+            cart[index].quantity = val;
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+        });
+    });
+}
+
+renderCart();
+
+document.getElementById('proceedCheckout').addEventListener('click', function(){
+    if(cart.length === 0){
+        alert("Your cart is empty!");
+        return;
+    }
+    let customerName = prompt("Enter your name for this order:");
+    if(!customerName) return;
+
+    let order = { customerName: customerName, time: Date.now(), items: cart };
+    orders.push(order);
+    localStorage.setItem('orders', JSON.stringify(orders));
+
+    alert(`Order confirmed! Thank you, ${customerName}`);
+    cart = [];
+    localStorage.setItem('cart', JSON.stringify(cart));
+    renderCart();
+});
+</script>
+
+</body>
+</html>
