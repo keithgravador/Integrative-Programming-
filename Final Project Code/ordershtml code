@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orders - Taste The Variety</title>
+<link rel="stylesheet" href="home2.css">
+<style>
+body { padding:2rem; font-family:'Segoe UI', sans-serif; background:#f9f9f9; }
+h1 { color:#ff6b6b; margin-bottom:20px; }
+.order-card { background:white; border-radius:15px; padding:20px; margin-bottom:20px; box-shadow:0 5px 15px rgba(0,0,0,0.1); }
+.order-card h3 { color:#ff6b6b; margin-bottom:5px; }
+.order-card p { margin:5px 0; }
+.order-items { margin-top:10px; }
+.order-items table { width:100%; border-collapse: collapse; }
+.order-items th, .order-items td { border-bottom:1px solid #ddd; padding:8px; text-align:left; }
+.order-items th { color:#4ecdc4; }
+.total { font-weight:bold; margin-top:10px; text-align:right; color:#ff6b6b; }
+.cta-button { padding:10px 20px; background:#ff6b6b; color:white; border:none; border-radius:5px; text-decoration:none; }
+</style>
+</head>
+<body>
+
+<h1>Past Orders</h1>
+<div id="ordersContainer"></div>
+<a href="home.html" class="cta-button">Back to Home</a>
+
+<script>
+let orders = JSON.parse(localStorage.getItem('orders')) || [];
+
+function renderOrders() {
+    const container = document.getElementById('ordersContainer');
+    if (orders.length === 0) {
+        container.innerHTML = "<p>No orders yet!</p>";
+        return;
+    }
+
+    container.innerHTML = '';
+    orders.forEach(order => {
+        let html = `<div class="order-card">
+                        <h3>Order by: ${order.customerName}</h3>
+                        <p>Time: ${new Date(order.time).toLocaleString()}</p>
+                        <div class="order-items">
+                            <table>
+                                <tr><th>Item</th><th>Quantity</th><th>Price</th></tr>`;
+        order.items.forEach(item => {
+            html += `<tr>
+                        <td>${item.name}</td>
+                        <td>${item.quantity}</td>
+                        <td>₱${item.price * item.quantity}</td>
+                     </tr>`;
+        });
+        html += `</table></div>
+                 <div class="total">Total: ₱${order.items.reduce((acc,i)=> acc+(i.price*i.quantity),0)}</div>
+                 </div>`;
+        container.innerHTML += html;
+    });
+}
+
+renderOrders();
+</script>
+
+</body>
+</html>
